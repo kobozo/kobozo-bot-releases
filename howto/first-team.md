@@ -142,13 +142,35 @@ stays.
 
 ## Details and memory
 
-Open the document icon in the header. **Details** shows the task, model,
-activity and recent work. **View memory** edits what the bot keeps across
-sessions.
+Open the document icon in the header. **Details** shows the bot's picture,
+name and a short role (the first sentence of its task), then two tabs.
+
+- **Activity** has a **Scheduled** card with this bot's routines (schedule in
+  plain words, an on/off switch, five shown and **Show more** for the rest, or
+  a button to open Routines when there are none), a **Computer** card that
+  shows whether the computer is not set up, not active or active and opens the
+  Computer window, an **About this bot** card (task, server, model, budget,
+  memory, recent tasks, **All activity**) and **Recent activity**.
+- **Library** shows the images and audio this bot made, with **Open library**
+  for the full list.
+
+**View memory** edits what the bot keeps across sessions. If a card cannot
+load, it says so in one sentence and the rest of the panel keeps working.
 
 ![Details panel beside chat](images/details-panel.png)
 
-*Demo capture: Details for Chief, with task, model and empty memory.*
+*Demo capture: Details for Chief on desktop, Activity tab with three example
+routines. The demo has no project computer, so the Computer card shows
+"Status unknown"; on a real install it shows the actual state.*
+
+![Details Library tab beside chat](images/details-library.png)
+
+*Demo capture: the Library tab with the labeled example audio and image.*
+
+![Details panel on a phone](images/details-panel-mobile.png)
+
+*Demo capture: on a phone, Details fills the screen; Back to bots keeps your
+draft.*
 
 Bots can stay hidden from the main list and still work. Open **Hidden bots** to
 chat with them. Asking a colleague sends a bounded task; it is not a shared

@@ -42,7 +42,7 @@ alternative. It does not open a website or use another tool to work around it.
 
 ## Library
 
-Open **My workspace → Library** (or **Details → Open library** on a bot). You see
+Open **My workspace → Library** (or the **Library** tab in **Details** on a bot, then **Open library**). You see
 every image and spoken audio file your bots generated, newest first, across all
 tasks. Filter by bot or kind, or search by title or description. Open the chat
 that produced an item, or download the file. A generated image appears here as

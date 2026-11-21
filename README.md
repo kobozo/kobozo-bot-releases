@@ -51,6 +51,6 @@ This how-to describes released, tested behavior only. Limits and unfinished work
 are stated explicitly. Internal lab runbooks and architecture notes are not part
 of this public guide.
 
-How-to revision: cf97c99eab1d515ddb5dfa5cd0d19d56eb44eefc
+How-to revision: 6361c1352e85abad9a0635cb7f5b32965c7e08c7
 
 For hosting, support and contact requests, visit [kobozo.io](https://kobozo.io/contact/).

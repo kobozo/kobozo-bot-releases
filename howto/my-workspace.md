@@ -20,6 +20,11 @@ organization pages are not shown. **Organization settings** opens the system
 browser at `/settings/organization` on your server, without a session token,
 so you sign in on the web.
 
+On a single-computer install (the Linux app) there is no organization level and no
+switch: everything is personal, and pages that only exist for an organization
+(users, backups, sign-in providers, updates) are not shown. See
+[Mac and phone](mac-and-phone.md).
+
 The left menu scrolls when the list is longer than the window. **Sign out**
 stays at the bottom of that column. On a narrow screen the sidebar becomes a
 section menu in the same order, and forms stack so fields stay full width.
