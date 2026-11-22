@@ -15,7 +15,9 @@ orchestrator LXC and opens a web setup wizard. Product source is not included.
 1. Open the [latest release](https://github.com/kobozo/kobozo-bot-releases/releases/latest).
    `releases/latest/download/install.sh` is always the newest stable release.
 2. Download `install.sh` (and `SHA256SUMS` if you want to compare it).
-3. Run the installer as root on the Proxmox host. It pins this release’s runtime
+3. Run `bash install.sh --proxmox` as root on the Proxmox host. Without
+   `--proxmox` the installer puts the desktop app on a normal computer instead
+   (and refuses to run on a Proxmox host). It pins this release’s runtime
    archive URL and digest. It does not overwrite an existing installation on retry.
 
 Before it installs anything the installer checks that the release is signed by

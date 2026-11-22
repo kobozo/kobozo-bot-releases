@@ -50,11 +50,12 @@ The Linux app runs Kobozo Bot on your own computer. It carries its own copy of
 Node and the server, so there is nothing else to install, and it needs no
 Proxmox. It is for 64-bit Ubuntu or Debian (Intel or AMD).
 
-Install it from a release that includes the Linux app:
+Install it from a release that includes the Linux app. `install.sh` installs the
+Linux app by default; for the Proxmox setup you add `--proxmox`:
 
 ```bash
 curl -fsSL https://github.com/kobozo/kobozo-bot-releases/releases/latest/download/install.sh -o install.sh
-bash install.sh --local
+bash install.sh
 ```
 
 The installer downloads the app of that release, checks its SHA-256 against the
