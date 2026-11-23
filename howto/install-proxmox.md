@@ -12,9 +12,25 @@ orchestrator LXC and opens a web setup wizard. Product source is not included.
 
 ## Download and install
 
-1. Open the [latest release](https://github.com/kobozo/kobozo-bot-releases/releases/latest).
-   `releases/latest/download/install.sh` is always the newest stable release.
-2. Download `install.sh` (and `SHA256SUMS` if you want to compare it).
+<!-- stable-install-url: https://github.com/kobozo/kobozo-bot-releases/releases -->
+<!-- Switch the marker above, and the link in step 1, back to
+     https://github.com/kobozo/kobozo-bot-releases/releases/latest
+     once a signed stable release is current. While that marker is
+     releases/latest, the release workflow republishes this page only after
+     that release's install.sh contains --proxmox and the release carries
+     manifest.json, manifest.json.sig and a Linux .deb. -->
+
+1. Open the [newest release, including betas](https://github.com/kobozo/kobozo-bot-releases/releases).
+   Download `install.sh` from the first release on that page. That page lists
+   every release, newest first, betas included. From a shell, the same tag is
+   the first entry of
+   `https://api.github.com/repos/kobozo/kobozo-bot-releases/releases?per_page=1`,
+   and the file is
+   `https://github.com/kobozo/kobozo-bot-releases/releases/download/<tag>/install.sh`.
+   Do not use `releases/latest` for this step until a signed stable release is
+   current. That link is still an older preview.
+2. Download `SHA256SUMS` from that same release and check the file:
+   `grep ' install.sh$' SHA256SUMS | sha256sum -c -`.
 3. Run `bash install.sh --proxmox` as root on the Proxmox host. Without
    `--proxmox` the installer puts the desktop app on a normal computer instead
    (and refuses to run on a Proxmox host). It pins this release’s runtime
