@@ -61,9 +61,12 @@ bash install.sh
 The installer downloads the app of that release, checks its SHA-256 against the
 value inside `install.sh`, and installs it with `apt` (it asks for your sudo
 password when you are not root). Then open **Kobozo Bot** from your
-applications menu, or run `kobozo-bot`. If a release has no Linux app, the
-installer says so and installs nothing. Not every release has one yet: a
-release has the Linux app only when its build succeeded.
+applications menu, or run `kobozo-bot`. The newest release can be a beta that
+has no Linux app, for example v2026.11.22-beta.1. Choose the newest release
+that includes a file named `Kobozo-Bot-Linux-*.deb`. A beta with no `.deb`
+says so at the top of its notes. If a release has no Linux app, the installer
+says so and installs nothing. Not every release has one yet: a release has
+the Linux app only when its build succeeded.
 
 We have installed and run the app with this installer on a clean Ubuntu 26.04
 machine. The AppImage is not part of the release.

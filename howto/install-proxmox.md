@@ -13,7 +13,8 @@ orchestrator LXC and opens a web setup wizard. Product source is not included.
 ## Download and install
 
 <!-- stable-install-url: https://github.com/kobozo/kobozo-bot-releases/releases -->
-<!-- Switch the marker above, and the link in step 1, back to
+<!-- The downloads link in step 1 is generated from the marker above.
+     Switch that marker back to
      https://github.com/kobozo/kobozo-bot-releases/releases/latest
      once a signed stable release is current. While that marker is
      releases/latest, the release workflow republishes this page only after

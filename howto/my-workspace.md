@@ -107,9 +107,13 @@ Decisions.*
 ## Account and sign-in
 
 On a real server you sign in with email and password. Passkeys, Google and
-GitHub are optional after an administrator configures them. Linked methods open
-the same bots and projects. The browser session stores only the app token, not
-model keys.
+GitHub are optional after an administrator configures them. When an authenticator
+app or a passkey is set up, the password, Google or GitHub step is followed by
+that second step or a recovery code. You can replace a lost authenticator with
+your password and a recovery code or a passkey. Setting up the authenticator,
+or registering a first passkey, signs out your other sessions. Administrators
+are asked to set one up; members can. Linked methods open the same bots and projects. The browser session
+stores only the app token, not model keys.
 
 An administrator turns an account off under **My workspace → Users**. That
 signs the person out, stops their queued and running tasks, and pauses routines,
@@ -139,6 +143,24 @@ outside this computer; the app says so.
 Without a password, anyone who uses this computer, including other operating
 system users, can open the app and use your bots, files and linked accounts. Set
 a password on a shared computer.
+
+Automatic sign-in without a password skips the second step only while the
+server listens on this computer (`127.0.0.1`, `localhost` or `::1`). Once a
+password is set, the second-step policy applies. If the server is bound to
+another address and there is no password, sign-in does not skip the second
+step and no session is issued.
+
+### Locked out of the second step
+
+Stop the server before you run the host recovery command. The server holds
+the database lock, and the command cannot open the database while the server
+is still running. On the host, after the server has stopped:
+
+```sh
+infra/kobozo-admin reset-second-step person@example.test
+```
+
+Start the server again afterwards. The command does not listen on the network.
 
 ## Models
 
@@ -427,8 +449,12 @@ the git form, is still pending a real app capture.
 
 ## Diagnostics and OpenTelemetry
 
-Product diagnostics can send fixed event codes to Kobozo, without chat or
-account contents. Turn them off under **Product diagnostics**. Organization
+Product diagnostics can send fixed event codes, counts and the software version
+to Kobozo. Chats, files, names and tokens stay on this server. A new installation
+shares them only after an administrator says yes, in the installer (No is
+preselected) or under **Product diagnostics**. An existing installation that was
+already sharing, and never stored a choice, keeps sharing until an administrator
+picks **Keep** or **Turn off** on the organization page. Organization
 OpenTelemetry export is optional and installation-wide.
 
 ## Network printers

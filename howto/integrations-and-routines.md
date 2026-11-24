@@ -28,6 +28,49 @@ endpoint you can connect here; local-only packages stay out of the list.
 
 Demo mode has no live MCP.
 
+## Allowed integrations
+
+An administrator opens **Organization settings → Integrations**. **Allowed
+integrations** starts on **All**, so every catalog entry and custom server
+that worked before still works. **Only these** shows the services on this
+installation: the bundled catalog, the administrator catalog, and accounts
+someone has already connected. Tick the ones members may use. Saving asks for
+the administrator password again. A choice that would block an existing
+account says how many accounts the next call will refuse. Those accounts stay
+in the list.
+
+Mailboxes (IMAP) are not part of this list. Manage them under Accounts.
+
+**Members may add Custom MCP** starts on. Off blocks only a new custom
+server. Existing custom integrations keep working. Use **Only these** or
+remove them to block them. **Search the public MCP Registry** starts on, unless this installation
+was already started with registry search turned off. Off hides **Also search
+the MCP Registry**. That switch only controls public search. It does not open
+any endpoint.
+
+![Allowed integrations set to All, with both switches on](images/allowed-integrations-all-desktop.png)
+
+*Desktop capture: Allowed integrations on All. The page says mailboxes stay under Accounts, and that existing custom integrations keep working. Members may add Custom MCP and Search the public MCP Registry are both on.*
+
+**Only these** lists the services on this installation. Tick the ones members
+may use. Saving with nothing ticked is refused. Approving a request while the
+mode is **All**, or while the stored list is empty, stays **All**.
+
+![Allowed integrations set to Only these](images/allowed-integrations-only-desktop.png)
+
+*Desktop capture: Only these, with the live catalog. The mailbox line and the note under Members may add Custom MCP stay on the page.*
+
+A blocked service says that the administrator blocked it and offers **Ask your
+admin**. An approved custom endpoint is that exact host and path. A different
+host, or the same host with a different path, stays blocked. The request
+appears on the same Integrations page. **Allow** adds that service. **Deny**
+records the refusal. Only an administrator can allow or deny it. The member
+sees the outcome on the integration card and under **Approvals**.
+
+![Ask your admin when a custom server is blocked](images/allowed-integrations-ask-desktop.png)
+
+*Desktop capture: a blocked custom server offers Ask your admin.*
+
 ## Standard mailboxes
 
 **My workspace → Mailboxes** connects a normal mailbox with IMAP and, when you
@@ -75,9 +118,22 @@ rules you already saved behave. Pick one label and the rule applies only to
 that account. A rule that names an account wins over the same service and
 action with no account. The labels are the accounts you connected. Renaming an account keeps its rules
 on the new name. If that name already has a rule for the same action, the
-rename is refused and the old name stays. A name that differs only by case is
-the same account. A label you later remove stays listed as account removed and
-no longer matches. Rules apply to all your bots, routines included.
+rename is refused and the old name stays. Renaming onto a name that only has a
+leftover rule for a removed account is refused until you delete that rule. A
+name that differs only by case is the same account. Resetting an integration
+account, or removing a mailbox, also removes that account's rules, unless
+another account of the same service still uses the name. The confirmation says
+how many rules go with it, including a rule kept from before this update.
+Disconnecting keeps the rules. A rule already left behind from before this
+update stays in the list and is not used. Connecting the same name again does
+not turn it back on. Re-attach it to one of your own accounts of that
+service that still exists, or delete it. Another person's account, a
+different service, or a name that is no longer connected is refused.
+Re-attaching onto a name that already has a rule for that action is
+refused, and the unused rule stays where it is. Re-attaching an Allow
+that would make a locked action weaker is refused the same way. An integration account
+named IMAP is the same mail service as a mailbox.
+Rules apply to all your bots, routines included.
 
 When one bot may use several accounts of the same service, **Edit agent** and
 that service under **Integrations** show which account it uses by default.
@@ -128,6 +184,18 @@ On a computer card, **Approve** runs that one action. **Approve for the rest of 
 
 A new installation starts with the routines-and-handed-off preset on for workspaces that have not been used yet. An installation that already had bots keeps its current rules. An administrator can change what **new** workspaces start with under the same page. That switch does not edit workspaces that already have rules.
 
+## Always ask
+
+An administrator can lock a kind of action under **Organization settings → Security → Always ask**. A locked category asks or blocks in every workspace. Your own Allow rule does not turn it off, including an Allow you saved or re-attached for one connected account. A Block rule you add still blocks. On **Action rules** the locked rows show a lock and **Set by your administrator**. You can make one stricter. You cannot make it weaker.
+
+The categories are the ones on that page: delete and destructive actions a connected app marks itself, sending (the mailbox, plus any service and tool name you add), terminal commands, printing, sensitive numbers, and a custom service and tool you type. Nothing here is a fixed list of services. Type the service name and the tool name when you want one extra action held.
+
+A locked action does not offer **Approve for the rest of this task**. After **Don't run**, the same service and tool in that task is refused with no new card. A new chat message can ask again. The page lists the last 20 times a lock refused an action: the bot, the time and the tool. It does not show what the action would have sent.
+
+A new installation asks for destructive app actions and for sensitive numbers. An installation that already had workspaces locks nothing until an administrator chooses, and shows that once. An invalid locked rule refuses every action until it is fixed. Auto-review, when it exists, cannot pass a locked category. Leave a category unlocked if that review should be allowed to cover it.
+
+*A screenshot of Always ask and of a locked row on Action rules is still open. The action-rules captures above predate locks.*
+
 ## Sensitive numbers
 
 Kobozo holds an outgoing action when the text contains a card number, an IBAN or a national ID number (Belgium or the Netherlands, unless an administrator chooses otherwise). The approval card shows a badge, the number masked, and a reminder to check the recipient. **Approve and run** sends the original text. **Show the numbers** reveals it while the card is still waiting, with the same sign-in check as approval. After you approve, decline, or the card closes, the stored copy is masked and Show is gone.
@@ -136,9 +204,27 @@ This is on for every workspace, including one that was upgraded. A personal Allo
 
 An administrator changes categories, countries and the Allow exception under **Organization settings → Security → Sensitive numbers**. On **Action rules** you can see whether the check is on. You cannot switch it off there. If the installation country is not Belgium or the Netherlands, no national-ID country is selected until an administrator chooses one.
 
+When an admin locks this category, Kobozo Bot always asks, even if you set it to skip asking.
+
 The check does not see a number that is only inside an image or a PDF, a number written as words, or a number split across fields. Digits joined by a single space count as one number, so a card or ID is not picked out of a longer run of digits. A Belgian national number is also recognised when it is grouped, for example `85 07 30 033 28` or `850730 033 28`. A leading `+` hides a short phone number, and it does not hide a card number or that Belgian number. A flight or order code in the same sentence does not hide the number that follows. A desktop file is not opened just because the action names its path.
 
 *A screenshot of the masked approval card and the Sensitive numbers setting is still open. The captures above predate this check.*
+
+## First-time targets
+
+Kobozo asks the first time a bot uses an address, a website host or an account number you did not give yourself. The approval card says the value came from content the bot read, shows it masked, and names it as a first time for that address, host or account number. **Approve and run** sends the original value and remembers it for your account. **Don't run** remembers nothing. **Show the values** reveals the exact value while the card is still waiting.
+
+This covers routines, handed-off tasks, and chats that have read mail, a page or another outside result. A chat that has only seen what you typed is not interrupted. An address you typed in an older chat is not treated as given. Only this chat, and this task or routine, counts. An administrator can change that to Off or to Every run under **Organization settings → Security → First-time targets**. If the setting is missing, the middle choice stays on. Your own Allow rule does not skip the check, and Action rules has no switch that turns it off. Block, and a category locked under Always ask, still win.
+
+A host is remembered exactly. Approving `a.example.com` does not approve `example.com` or another host under that name. An address is not remembered for every address at the same domain. **Forget all** on that page, or on Action rules, drops the remembered targets. It does not show the values. Recipients you already approved for sensitive numbers stay known. Those stay under **Sensitive numbers**.
+
+![First-time targets, with the default scope and Forget all](images/first-time-targets-desktop.png)
+
+*The default is routines, handed-off tasks and chats that read outside content. Forget all clears the remembered targets. Recipients approved for sensitive numbers stay under Sensitive numbers.*
+
+![First-time targets on a narrow screen](images/first-time-targets-mobile.png)
+
+*The same setting at 390px. The choice, the count and Forget all stay in the column.*
 
 ## Routines
 
@@ -166,7 +252,7 @@ A webhook routine is read-only until you clear **Read only**. A routine that is 
 
 After you save it, the address is shown once, with **Copy**. Later it is masked. **Rotate address** issues a new one and the old address stops working. **Require signature** shows a signing secret once. Send `X-Kobozo-Signature: sha256=<hex>` or `X-Hub-Signature-256` over the raw body bytes. If you also send `X-Kobozo-Timestamp`, it must be within five minutes and the signed bytes are `timestamp`, a dot, then the body. **Require a timestamp** rejects a signature that omits that header. The event is data for the routine, not a new instruction. **Send test event** queues one delivery without those HTTP checks. Recent deliveries list time, status, dedup key and size. The card shows how many webhook runs this routine has used today, out of the daily limit. An administrator sets that limit under **Inbound webhooks**; a new installation starts at 50 per routine per UTC day. Past the limit the address answers 429 until the next UTC day. A manual **Run now** does not count toward it. Three failed runs pause the routine and say so on the card. **Resume** turns it back on. A refused delivery is not a failed run.
 
-A model account that has reached its limit is not one of those three failures. The card says **Waiting for model limit**, with **Resume** and a link to **My workspace → Model keys**. Resume does not run the occurrences that were missed, and it does not start a run by itself. A short Retry-After, up to one minute, is waited once. The chat then names the account. That wait is skipped once a tool in the same reply has already run, so a send or a write is not repeated. When the provider sends a reset time in a standard header, and that time is still ahead, the message includes the time it should be available again.
+A model account that has reached its limit is not one of those three failures. The card says **Waiting for model limit**, with **Resume** and a link to **My workspace → Model keys**. Resume does not run the occurrences that were missed, and it does not start a run by itself. A short Retry-After, up to one minute, is waited once. The chat then names the account. That wait is skipped once a tool in the same reply has already run, so a send or a write is not repeated. When the provider sends a reset time in a standard header, and that time is still ahead, the message includes the time it should be available again, in the time zone of that chat or routine. When no time zone is set, the time is labelled UTC.
 
 Set `KOBOZO_TRUST_PROXY` to a hop count, such as `1`, or to a comma-separated list of trusted proxy addresses such as `10.0.0.0/8,127.0.0.1`. The value `true` is not accepted, because it would trust every address in `X-Forwarded-For`. Use a hop count only when this process can be reached through that proxy alone. Left unset, every sender behind one proxy shares that proxy’s per-minute bucket, and the server stops tracking new addresses once it already remembers 2000. Those per-minute limits stay in memory on this version. The daily count is kept even after older deliveries scroll off the list, so a limit above 100 still stops the routine for the rest of the UTC day.
 
@@ -265,6 +351,8 @@ You can pair more than one of your own Telegram accounts. Anyone else gets a sin
 A message you send there starts a normal task on this bot’s saved model. The answer comes back in Telegram. The same message appears in the Kobozo chat with **via Telegram**. **Activity** lists the task as **Telegram**. A task you start in the app or from a routine is not copied to Telegram.
 
 `/stop` cancels the task that this Telegram chat started. `/help` lists what the channel can do. A single-choice question shows one button per answer. Anything that needs approval, sign-in, or a settings change says the bot needs you. **Open in Kobozo** opens that bot in the app. There is no approve button in Telegram. Account changes from a Telegram task are refused.
+
+If that app address is on the local network, or it is plain HTTP, Telegram can refuse the button. The rest of the notice still arrives on the first try, without the button, and the address is written in the message. Text Telegram already accepted is not sent again. Later notices skip the button until an administrator changes the app address, or you link the bot again. The Telegram section says why. An administrator opens **Organization settings → Project environment → Channels** from that note. Anyone else is asked to have an administrator check the app address. An HTTPS address that Telegram accepts brings the button back. The request id inside the link is not shown on the error line.
 
 **Remove Telegram** stops new messages. The conversation in Kobozo stays.
 
